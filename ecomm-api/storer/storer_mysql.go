@@ -16,7 +16,7 @@ func NewMySQLStorer(db *sqlx.DB) *MySQLStorer {
 }
 
 func (ms *MySQLStorer) CreateProduct(ctx context.Context, p *Product) (*Product, error) {
-	res, err := ms.db.NamedExecContext(ctx, "INSERT INTO products (name,image,category,description,rating,num_reviews, price, count_in_stock) VALUES(:name,:image,:category,:description,:rating,:num_reviews,:price, :count_in_stock)", p)
+	res, err := ms.db.NamedExecContext(ctx, "INSERT INTO products (name, image, category, description, rating, num_reviews, price, count_in_stock) VALUES (:name, :image, :category, :description, :rating, :num_reviews, :price, :count_in_stock)", p)
 
 	if err != nil {
 		return nil, fmt.Errorf("error inserting product: %W", err)
@@ -54,7 +54,7 @@ func (ms *MySQLStorer) ListProducts(ctx context.Context) ([]*Product, error) {
 }
 
 func (ms *MySQLStorer) UpdateProduct(ctx context.Context, p *Product) (*Product, error) {
-	_, err := ms.db.NamedExecContext(ctx, "UPDATE products SET name=:name, image=:image,category=:category,description=:description, rating=:rating, num_reviews=:num_reviews, price=:price, count_in_stock=:count_in_stock WHERE id=:id", p)
+	_, err := ms.db.NamedExecContext(ctx, "UPDATE products SET name=:name, image=:image, category=:category, description=:description, rating=:rating, num_reviews=:num_reviews, price=:price, count_in_stock=:count_in_stock WHERE id=:id", p)
 
 	if err != nil {
 		return nil, fmt.Errorf("couldn't update product :%w", err)
