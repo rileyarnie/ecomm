@@ -1,7 +1,16 @@
 package main
 
-import "github.com/rileyarnie/ecomm/db"
+import (
+	"log"
+
+	"github.com/rileyarnie/ecomm/db"
+)
 
 func main() {
-	db.NewDatabase()
+	db, err := db.NewDatabase()
+	if err != nil {
+		log.Fatalf("error opening database: %v", err)
+	}
+	defer db.Close()
+	log.Println("Successfully connected to database")
 }
