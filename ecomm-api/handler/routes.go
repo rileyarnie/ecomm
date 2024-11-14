@@ -20,6 +20,16 @@ func RegisterRoutes(handler *handler) *chi.Mux {
 			router.Patch("/", handler.updateProduct)
 			router.Delete("/", handler.deleteProduct)
 		})
+
+		router.Route("/orders", func(router chi.Router) {
+			router.Post("/", handler.createOrder)
+			router.Get("/", handler.listOrders)
+
+			router.Route("/{id}", func(r chi.Router) {
+				r.Get("/", handler.getOrder)
+				r.Delete("/", handler.deleteOrder)
+			})
+		})
 	})
 	return router
 }
